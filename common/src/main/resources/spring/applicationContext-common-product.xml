@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.1.xsd
+  			http://www.springframework.org/schema/task
+           http://www.springframework.org/schema/task/spring-task-4.1.xsd">
+
+	<!-- 有下面的扫描包配置，故可略去bean声明配置<context:annotation-config />  -->
+	<context:component-scan base-package="com.weijuju"/>
+	
+	<!-- 简化的属性文件扫描可以这样<context:property-placeholder location="classpath:test/*.properties"/>  -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="nullValue" value="@null" />
+		<property name="localOverride" value="true" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+            <list>
+            	<value>classpath*:product/*.properties</value>
+            </list>
+        </property>
+		<property name="order" value="0" />
+		<property name="fileEncoding">  
+	       <value>UTF-8</value>  
+	    </property>
+	</bean>
+	
+	<!-- 模块化配置 -->
+	<import resource="classpath*:spring/DataSource.xml"/>
+	<import resource="classpath*:spring/Redis.xml"/>
+	<import resource="classpath*:spring/Dubbo.xml"/>
+	
+	<!-- 支持异步方法执行，其实就是定时任务，有需要配置定时任务bean可以采用模块配置xml写法 -->
+    <task:annotation-driven/>
+</beans>

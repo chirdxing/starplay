@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+	<!-- 单数据源和事务配置，如果要设置多数据源拷贝一份重新配置即可  -->
+	<bean id="dataDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close" primary="true">
+		<property name="driverClassName" value="${data.db.driver}" />
+		<property name="url" value="${data.db.url}" />
+		<property name="username" value="${data.db.user}" />
+		<property name="password" value="${data.db.password}" />
+		<property name="defaultAutoCommit" value="${data.db.defaultAutoCommit}" />
+		<property name="maxTotal" value="${data.db.maxTotal}" />
+		<property name="maxIdle" value="${data.db.maxIdle}" />
+		<!-- 默认10秒 -->
+		<property name="maxWaitMillis" value="${data.db.maxWaitMillis:10000}" />
+		<!-- 默认是8小时 -->
+		<property name="maxConnLifetimeMillis" value="${data.db.maxConnLifetimeMillis:28800000}" />
+	</bean>
+	
+	<!-- mybatis配置和扫描 -->
+	<bean id="dataSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataDataSource" />
+		<property name="configLocation" value="classpath:dataMapperConfig.xml" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:sqlmap/**/*.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="dataMapperScannerConfig" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="dataSqlSessionFactory" />
+		<!-- 模块过多可以考虑用*匹配 -->
+		<property name="basePackage" value="com.weijuju.base.mapper" />
+	</bean>
+
+	<!-- 定义事务管理器（声明式的事务） -->
+	<bean id="dataTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager" primary="true">
+		<property name="dataSource" ref="dataDataSource" />
+	</bean>
+	<!-- 如果有多数据源，自开启事务需要指定事务bean -->
+	<tx:annotation-driven transaction-manager="dataTransactionManager" />
+	<!-- 单数据源和事务配置-end -->
+
+</beans>

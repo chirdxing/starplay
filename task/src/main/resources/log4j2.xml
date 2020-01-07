@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" monitorInterval="1800">
+
+	<properties>
+		<property name="log.dir">logs</property>
+	</properties>
+
+	<appenders>
+		<!--这个输出控制台的配置 -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout
+				pattern="%d{yy/MM/dd HH:mm:ss.SSS} %-5level %logger{36} %L %M - %m%xEx%n" />
+		</Console>
+
+		<!-- 打印错误日志 -->
+		<RollingFile name="ERROR" fileName="${log.dir}/task/error.log"
+			filePattern="${log.dir}/task/error-%d{yyyy-MM-dd}-%i.log" append="true">
+			<PatternLayout>
+				<pattern><![CDATA[%n%-4r[%d{yy/MM/dd HH:mm:ss}%X{productionMode}]==>%X{req.method}%X{req.queryString}[ip=%X{req.remoteHost}, forwardedFor=%X{req.xForwardedFor},ref=%X{req.referer}, ua=%X{req.userAgent}, sid=%X{req.jsessionid}]%n  %-5level %logger{35} - %m]]></pattern>
+			</PatternLayout>
+			<Policies>
+				<!-- 定时封存 -->
+				<!-- <TimeBasedTriggeringPolicy interval="6" modulate="true"/> -->
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200MB" />
+			</Policies>
+
+			<ThresholdFilter level="error" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<!-- 如果不设置，默认为7 -->
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+		
+		<RollingFile name="WARN" fileName="${log.dir}/task/warn.log"
+			filePattern="${log.dir}/task/warn-%d{yyyy-MM-dd}-%i.log" append="true">
+			<PatternLayout>
+				<pattern><![CDATA[%n%-4r[%d{yy/MM/dd HH:mm:ss}%X{productionMode}]==>%X{req.method}%X{req.queryString}[ip=%X{req.remoteHost}, forwardedFor=%X{req.xForwardedFor},ref=%X{req.referer}, ua=%X{req.userAgent}, sid=%X{req.jsessionid}]%n  %-5level %logger{35} - %m]]></pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200MB" />
+			</Policies>
+			<ThresholdFilter level="warn" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+
+		<RollingFile name="INFO" fileName="${log.dir}/task/info.log"
+			filePattern="${log.dir}/task/info-%d{yyyy-MM-dd}-%i.log" append="true">
+			<PatternLayout>
+				<pattern><![CDATA[%n%-4r[%d{yy/MM/dd HH:mm:ss}%X{productionMode}]==>%X{req.method}%X{req.queryString}[ip=%X{req.remoteHost}, forwardedFor=%X{req.xForwardedFor},ref=%X{req.referer}, ua=%X{req.userAgent}, sid=%X{req.jsessionid}]%n  %-5level %logger{35} - %m]]></pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="200MB" />
+			</Policies>
+			<ThresholdFilter level="info" onMatch="ACCEPT"
+				onMismatch="DENY" />
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+	</appenders>
+
+	<Loggers>
+		<!-- to filter debug level logger <Could not find default TaskScheduler bean org.springframework.beans.factory.NoSuchBeanDefinitionException> -->
+		<!-- <logger name="org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor">
+			<level value="info" />
+		</logger> -->
+		<root level="trace">
+			<AppenderRef ref="ERROR" />
+			<AppenderRef ref="WARN" />
+			<AppenderRef ref="INFO" />
+			<AppenderRef ref="Console" />
+		</root>
+	</Loggers>
+</configuration>

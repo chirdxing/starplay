@@ -1,0 +1,1 @@
+java -cp "lib/*:conf/" com.weijuju.base.job.main.TaskMain %*

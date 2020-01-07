@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>common</module>
+        <module>baseweb</module>
+        <module>task</module>
+    </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.11.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.star</groupId>
+    <artifactId>starplay</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>starplay</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version><java.version>1.8</java.version>
+        <project.module.version>0.0.1-SNAPSHOT</project.module.version>
+
+        <project.compiler.version>1.7</project.compiler.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 第三方依赖的版本 -->
+        <servlet.version>3.0.1</servlet.version>
+        <jsp.version>2.2</jsp.version>
+        <jstl.version>1.2</jstl.version>
+        <junit.version>4.12</junit.version>
+        <!-- spring start -->
+        <spring.version>4.1.4.RELEASE</spring.version>
+        <spring.data.redis.version>1.5.2.RELEASE</spring.data.redis.version>
+        <spring.integration.version>4.1.2.RELEASE</spring.integration.version>
+        <!-- spring end -->
+        <!-- mybatis start -->
+        <mysql.connector.java.version>5.1.34</mysql.connector.java.version>
+        <mybatis.spring.version>1.2.2</mybatis.spring.version>
+        <mybatis.version>3.2.8</mybatis.version>
+        <mybatis.generator.core.version>1.3.2</mybatis.generator.core.version>
+        <!-- mybatis end -->
+        <!-- log start -->
+        <slf4j.version>1.7.0</slf4j.version>
+        <slf4j2.version>2.0.2</slf4j2.version>
+        <log4j2.version>2.5</log4j2.version>
+        <!-- log end -->
+        <!-- apache start -->
+        <commons.dbcp2.version>2.1</commons.dbcp2.version>
+        <!-- apache end -->
+
+        <!-- maven plugin start -->
+        <mybatis.generator.maven.plugin.version>1.3.2</mybatis.generator.maven.plugin.version>
+        <!-- maven plugin end -->
+
+        <jedis.version>2.7.3</jedis.version>
+        <json.lib.version>2.4</json.lib.version>
+
+        <commons.fileupload.version>1.2.2</commons.fileupload.version>
+        <mime.util.version>2.1.3</mime.util.version>
+        <commons.io.version>2.4</commons.io.version>
+
+        <qiniu.sdk.version>[7.0.0, 7.0.99]</qiniu.sdk.version>
+        <javax.mail.version>1.4</javax.mail.version>
+        <aliyun.core.version>2.2.2</aliyun.core.version>
+        <aliyun.dm.version>2.0.0-rc1</aliyun.dm.version>
+
+        <!-- httpcomponents start-->
+        <httpcomponents.version>4.5.1</httpcomponents.version>
+        <httpcomponents.httpcore.version>4.4.3</httpcomponents.httpcore.version>
+        <commons.codec.version>1.4</commons.codec.version>
+        <!-- httpcomponents end -->
+
+        <lombok.version>1.16.4</lombok.version>
+        <guava.version>18.0</guava.version>
+        <zxing.version>3.4.0</zxing.version>
+        <jxl.version>2.6.10</jxl.version>
+
+        <!-- rmi start -->
+        <weixinjia.rmi.version>0.0.1-SNAPSHOT</weixinjia.rmi.version>
+        <dubbo.version>2.5.3-1</dubbo.version>
+        <!-- rmi end -->
+
+        <quartz.version>2.2.1</quartz.version>
+        <rocket.version>4.3.0</rocket.version>
+        <es.version>5.3.0</es.version>
+        <transport.version>5.3.0</transport.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- spring集成 start -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+                <!--
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+                 -->
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>${spring.data.redis.version}</version>
+            </dependency>
+            <!-- spring集成 end -->
+            <!-- 使用servlet3.0的annotation，去除web.xml合并问题 -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>${jsp.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+            <!-- servlet3 end -->
+            <!-- mybatis start -->
+            <!-- mysql驱动 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.java.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!-- mybatis与spring整合 -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+            <!-- 持久使用mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <!-- mybatis配置生成器 -->
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-core</artifactId>
+                <version>${mybatis.generator.core.version}</version>
+            </dependency>
+            <!-- mybatis end -->
+
+            <!-- stream -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+            <!-- end -->
+
+            <!-- 日志 start -->
+            <!-- 门面日志框架slf4j -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- log4j2 -->
+            <!--核心log4j2jar包-->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <!--web工程需要包含log4j-web，非web工程不需要-->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-web</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <!--用于与slf4j保持桥接-->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${slf4j2.version}</version>
+            </dependency>
+            <!-- 日志 end -->
+
+            <!-- apache工具包 start -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-dbcp2</artifactId>
+                <version>${commons.dbcp2.version}</version>
+            </dependency>
+            <!-- apache工具包 end -->
+
+            <!-- 测试 start -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <!-- 测试 end -->
+
+            <!-- redis连接 -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${jedis.version}</version>
+            </dependency>
+
+            <!-- json-lib json解析 -->
+            <dependency>
+                <groupId>net.sf.json-lib</groupId>
+                <artifactId>json-lib</artifactId>
+                <version>${json.lib.version}</version>
+                <!-- json-lib有两个版本，用属性classifier额外增加属性指定用jdk15版本的 -->
+                <classifier>jdk15</classifier>
+            </dependency>
+
+            <!-- 文件上传 start -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>eu.medsea.mimeutil</groupId>
+                <artifactId>mime-util</artifactId>
+                <version>${mime.util.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- 文件上传 end -->
+
+            <!-- 七牛 start -->
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu.sdk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.httpcomponents</groupId>
+                        <artifactId>httpclient</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- 七牛 end -->
+
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${javax.mail.version}</version>
+            </dependency>
+
+            <!-- 阿里云邮件服务 start -->
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-dm</artifactId>
+                <version>${aliyun.dm.version}</version>
+            </dependency>
+            <!-- 阿里云邮件服务 end -->
+
+            <!-- httpclient start -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>${httpcomponents.httpcore.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient-cache</artifactId>
+                <version>${httpcomponents.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec.version}</version>
+            </dependency>
+            <!-- httpclient end -->
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.jexcelapi</groupId>
+                <artifactId>jxl</artifactId>
+                <version>${jxl.version}</version>
+            </dependency>
+
+            <!-- 定时器 -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocket.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${es.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>transport</artifactId>
+                <version>${transport.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- redis 配置，PoolConfig可共享，Pool各自定义 -->
+	<bean id="huaerRedisPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig">
+		<property name="maxTotal" value="${huaer.redis.maxActive}" />
+		<property name="maxIdle" value="${huaer.redis.maxIdle}" />
+		<property name="minIdle" value="${huaer.redis.minIdle}" />
+		<!-- 默认需要test on borrow -->
+		<property name="testOnBorrow" value="${huaer.redis.testOnBorrow:true}" />
+		<property name="timeBetweenEvictionRunsMillis"
+			value="${huaer.redis.timeBetweenEvictionRunsMillis}" />
+		<property name="numTestsPerEvictionRun" value="${huaer.redis.numTestsPerEvictionRun}" />
+	</bean>
+
+	<bean id="huaerCoreJedisPool" class="redis.clients.jedis.JedisPool">
+		<!-- 构造函数参数 -->
+		<constructor-arg index="0"
+			type="org.apache.commons.pool2.impl.GenericObjectPoolConfig" ref="huaerRedisPoolConfig" />
+		<!-- ip -->
+		<constructor-arg index="1" value="${huaer.redis.host}" />
+		<!-- port -->
+		<constructor-arg index="2" value="${huaer.redis.port}" />
+		<!-- timeout -->
+		<constructor-arg index="3" value="${huaer.redis.timeout}" />
+		<!-- password -->
+		<constructor-arg index="4">
+			<null />
+		</constructor-arg>
+		<!-- db 通过这里可以配置不同的redis库 -->
+		<constructor-arg index="5" value="${huaer.redis.coredb}" />
+	</bean>
+
+	<bean id="coreRedisExecutor" class="com.star.common.redis.JedisExecutor"
+		primary="true">
+		<constructor-arg ref="huaerCoreJedisPool" />
+	</bean>
+	
+	<!-- 多redis库配置 -->
+	<!-- <bean id="huaerBasicJedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0"
+			type="org.apache.commons.pool2.impl.GenericObjectPoolConfig" ref="huaerRedisPoolConfig" />
+		<constructor-arg index="1" value="${huaer.redis.host}" />
+		<constructor-arg index="2" value="${huaer.redis.port}" />
+		<constructor-arg index="3" value="${huaer.redis.timeout}" />
+		<constructor-arg index="4">
+			<null />
+		</constructor-arg>
+		<constructor-arg index="5" value="${huaer.redis.basicdb}" />
+	</bean>
+
+	<bean id="basicRedisExecutor" class="com.weijuju.base.common.redis.JedisExecutor"
+		primary="true">
+		<constructor-arg ref="huaerBasicJedisPool" />
+	</bean> -->
+</beans>
