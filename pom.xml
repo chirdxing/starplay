@@ -30,7 +30,7 @@
         <servlet.version>3.0.1</servlet.version>
         <jsp.version>2.2</jsp.version>
         <jstl.version>1.2</jstl.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <!-- spring start -->
         <spring.version>4.1.4.RELEASE</spring.version>
         <spring.data.redis.version>1.5.2.RELEASE</spring.data.redis.version>
