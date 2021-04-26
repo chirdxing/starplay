@@ -60,7 +60,7 @@
 
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <mime.util.version>2.1.3</mime.util.version>
-        <commons.io.version>2.4</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
 
         <qiniu.sdk.version>[7.0.0, 7.0.99]</qiniu.sdk.version>
         <javax.mail.version>1.4</javax.mail.version>
