@@ -68,7 +68,7 @@
         <aliyun.dm.version>2.0.0-rc1</aliyun.dm.version>
 
         <!-- httpcomponents start-->
-        <httpcomponents.version>4.5.1</httpcomponents.version>
+        <httpcomponents.version>4.5.13</httpcomponents.version>
         <httpcomponents.httpcore.version>4.4.3</httpcomponents.httpcore.version>
         <commons.codec.version>1.4</commons.codec.version>
         <!-- httpcomponents end -->
